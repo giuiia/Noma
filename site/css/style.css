@@ -97,12 +97,12 @@ address { font-style: normal; }
 .eyebrow-light { color: rgba(242,232,213,0.55); }
 
 h1, h2, h3 { font-family: var(--font-serif); font-weight: 300; line-height: 1.12; }
-h1 { font-size: clamp(2.6rem, 5.5vw, 5rem); }
-h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
-h3 { font-size: clamp(1.3rem, 2.2vw, 1.9rem); }
+h1 { font-size: clamp(2.9rem, 6vw, 5.6rem); }
+h2 { font-size: clamp(2.3rem, 4.4vw, 3.8rem); }
+h3 { font-size: clamp(1.45rem, 2.5vw, 2.1rem); }
 
 p {
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
   line-height: 1.85;
   color: var(--text-soft);
 }
@@ -190,7 +190,7 @@ p {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 1rem 0;
+  padding: 0.3rem 0;
   background: transparent;
   transition: background 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
 }
@@ -210,14 +210,14 @@ p {
 }
 
 .logo { display: flex; align-items: center; }
-.logo img { height: 90px; width: auto; }
+.logo img { height: 130px; width: auto; }
 /* dark logo hidden on hero (light bg transparent), shown when scrolled */
 .logo .logo-dark  { display: none; }
 .logo .logo-light { display: block; }
 
 .header-nav { display: flex; gap: 2.5rem; list-style: none; }
 .header-nav a {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -240,6 +240,13 @@ p {
   transition: background 0.3s;
 }
 .header-cta:hover { background: var(--brown); }
+
+/* Quando o header revela fundo sólido, o CTA ganha cor de destaque */
+#header.scrolled .header-cta {
+  background: var(--gold);
+  color: var(--brown-deep);
+}
+#header.scrolled .header-cta:hover { background: #c9a274; }
 
 .menu-toggle {
   display: none;
@@ -265,6 +272,10 @@ p {
   justify-content: center;
   text-align: center;
   overflow: hidden;
+  /* espaço reservado pro indicador de scroll — garante que o conteúdo do hero
+     nunca encoste nele, não importa o tamanho do texto */
+  padding-bottom: 7rem;
+  box-sizing: border-box;
 }
 
 .hero-bg {
@@ -305,21 +316,32 @@ p {
   align-items: center;
   gap: 1.6rem;
   padding: 8rem var(--px) 5rem;
-  max-width: 760px;
+  max-width: 840px;
 }
 
 .hero-content h1 {
   color: var(--cream);
-  max-width: 620px;
+  max-width: 780px;
+  font-size: clamp(2.1rem, 4.6vw, 4.2rem);
 }
 
 .hero-content .hero-sub {
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 300;
   color: rgba(242,232,213,0.68);
   line-height: 1.75;
   max-width: 420px;
   margin-top: -0.4rem;
+}
+
+.hero-content .hero-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.2rem;
 }
 
 .hero-ctas {
@@ -344,11 +366,13 @@ p {
   opacity: 0.55;
 }
 .scroll-indicator span {
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--cream);
+  transition: color 0.3s;
 }
+.scroll-indicator:hover span { color: var(--gold); }
 .scroll-line {
   width: 1px;
   height: 40px;
@@ -466,58 +490,100 @@ p {
   border-color: rgba(184,144,96,0.35);
 }
 .pilar svg { width: 36px; height: 36px; margin: 0 auto 1.2rem; }
-.pilar h3 { font-size: 1.1rem; font-weight: 400; color: var(--brown); margin-bottom: 0.7rem; }
-.pilar p  { color: var(--text-soft); font-size: 0.875rem; }
+.pilar h3 { font-size: 1.2rem; font-weight: 400; color: var(--brown); margin-bottom: 0.7rem; }
+.pilar p  { color: var(--text-soft); font-size: 0.95rem; }
 
 .como-funciona {
-  border-top: 1px solid rgba(74,40,16,0.12);
-  padding-top: 4rem;
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background: linear-gradient(165deg, #1a0303 0%, #500900 45%, #2a0404 100%);
+  padding: clamp(3.5rem, 7vw, 5.5rem) var(--px);
+  margin-top: 4rem;
+}
+.como-funciona::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/pattern.png');
+  background-size: 480px;
+  opacity: 0.04;
+  pointer-events: none;
 }
 .como-funciona > h3 {
+  position: relative;
+  z-index: 1;
+  text-align: center;
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--earth);
-  margin-bottom: 3rem;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+.como-funciona-title {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--cream);
+  margin: 0 auto 4.5rem;
+  max-width: 640px;
+}
+.como-funciona-tagline {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 4rem auto 0;
 }
 
 .steps-h {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
 }
 
-.step-h { display: flex; flex-direction: column; gap: 0.6rem; }
-
-.step-h-head {
+.step-h {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.4rem;
+  text-align: center;
+  gap: 0.6rem;
 }
+
 .step-h-num {
   font-family: var(--font-serif);
-  font-size: 1.8rem;
+  font-size: 2.6rem;
   font-weight: 300;
   color: var(--gold);
   line-height: 1;
-  flex-shrink: 0;
 }
 .step-h-line {
-  flex: 1;
+  width: 28px;
   height: 1px;
-  background: linear-gradient(to right, rgba(184,144,96,0.35), transparent);
+  background: rgba(242,232,213,0.35);
+  margin: 0.3rem 0 0.5rem;
 }
 .step-h strong {
   font-family: var(--font-serif);
   font-size: 1.1rem;
   font-weight: 400;
-  color: var(--brown);
+  color: var(--cream);
   display: block;
 }
-.step-h p { font-size: 0.875rem; color: var(--text-soft); margin: 0; }
+.step-h p { font-size: 0.95rem; color: rgba(242,232,213,0.62); margin: 0; max-width: 300px; }
+.step-h .link-subtle { color: var(--gold); margin-top: 0.3rem; }
+.step-h .link-subtle:hover { opacity: 0.75; }
 
 /* ========================
    SEÇÃO 4 — EXPERIÊNCIA
@@ -547,13 +613,13 @@ p {
   font-weight: 400;
   color: var(--brown);
 }
-.feature p { font-size: 0.875rem; color: var(--text-soft); line-height: 1.75; }
+.feature p { font-size: 0.95rem; color: var(--text-soft); line-height: 1.75; }
 
 /* ========================
    SEÇÃO 5 — REFÚGIOS (galeria)
    ======================== */
 #refugios {
-  background: var(--cream-alt);
+  background: var(--cream);
   padding: var(--section-py) 0;
 }
 
@@ -586,7 +652,8 @@ p {
 .refugio-foto {
   position: relative;
   overflow: hidden;
-  min-height: 300px;
+  aspect-ratio: 1 / 1;
+  align-self: center;
 }
 
 /* Placeholders refúgios — bordeaux (múltiplos slides) */
@@ -712,14 +779,14 @@ p {
 .refugio-chamada {
   display: block;
   font-family: var(--font-serif);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 300;
   font-style: italic;
   color: var(--earth);
   margin-top: -0.5rem;
 }
 .refugio-info-panel p {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-soft);
   line-height: 1.8;
 }
@@ -795,32 +862,85 @@ blockquote {
 
 .mv-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: clamp(3rem, 6vw, 8rem);
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
 }
 .mv-content h2 { color: var(--brown); margin-bottom: 1.4rem; }
 .mv-content p  { color: var(--text-soft); }
 
-.mv-highlights { display: flex; flex-direction: column; }
-.mv-item {
-  padding: 1.8rem 0;
+.mv-bullets {
+  list-style: none;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
 }
-.mv-item strong {
+.mv-bullets li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid rgba(74,40,16,0.1);
+}
+.mv-bullets li:last-child { border-bottom: 1px solid rgba(74,40,16,0.1); }
+.mv-bullet-label {
   font-family: var(--font-serif);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 400;
   color: var(--brown);
 }
-.mv-item span {
+.mv-bullet-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-right: 0.7rem;
+  vertical-align: middle;
+}
+.mv-bullet-value {
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   color: var(--gold);
+  white-space: nowrap;
 }
-.mv-divider { height: 1px; background: rgba(74,40,16,0.1); }
+
+/* Grade de fotos de Monte Verde */
+.mv-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+.mv-photo-sq {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1a0303 0%, #500900 50%, #2a0404 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mv-photo-sq img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+.mv-photo-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242,232,213,0.35);
+}
+/* some a foto real chegar, o rótulo some sozinho */
+.mv-photo-sq:has(img) .mv-photo-label { display: none; }
+.mv-photo-wide {
+  grid-column: 1 / 3;
+  aspect-ratio: 2 / 1.1;
+}
 
 /* ========================
    SEÇÃO 8 — FAQ
@@ -864,7 +984,7 @@ blockquote {
   transition: max-height 0.45s var(--ease-in-out), padding 0.45s var(--ease-in-out);
 }
 .faq-item.open .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
-.faq-answer p { font-size: 0.9rem; color: var(--text-soft); }
+.faq-answer p { font-size: 1rem; color: var(--text-soft); }
 
 /* ========================
    SEÇÃO 9 — RESERVAS
@@ -911,7 +1031,7 @@ blockquote {
   border-bottom: 1px solid rgba(184,144,96,0.12);
 }
 
-.footer-logo { height: 80px; width: auto; margin-bottom: 1.2rem; }
+.footer-logo { height: 110px; width: auto; margin-bottom: 1.2rem; }
 .footer-brand p {
   font-size: 0.8rem;
   color: rgba(242,232,213,0.42);
@@ -959,7 +1079,124 @@ blockquote {
 .footer-legal { display: flex; gap: 2rem; }
 .footer-legal a { font-size: 0.72rem; color: rgba(242,232,213,0.22); transition: color 0.3s; }
 .footer-legal a:hover { color: rgba(242,232,213,0.45); }
-.footer-legal a.disabled { pointer-events: none; }
+.footer-legal a.disabled {
+  pointer-events: none;
+  opacity: 0.55;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.footer-legal .soon-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid rgba(242,232,213,0.25);
+  border-radius: 100px;
+  padding: 0.15rem 0.5rem;
+}
+
+/* ========================
+   PÁGINA LEGAL (Política de Privacidade)
+   ======================== */
+#legal-hero {
+  background: var(--brown-deep);
+  padding: 11rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+#legal-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../img/pattern.png');
+  background-size: 500px;
+  opacity: 0.04;
+}
+#legal-hero .container { position: relative; z-index: 1; }
+#legal-hero h1 { color: var(--cream); font-size: clamp(2.2rem, 4vw, 3.2rem); }
+#legal-hero p { color: rgba(242,232,213,0.55); margin-top: 1rem; max-width: 560px; }
+
+#legal-content {
+  background: var(--cream);
+  padding: var(--section-py) 0;
+}
+.legal-body {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.legal-body h2 {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  color: var(--brown);
+  margin-top: 3.2rem;
+  margin-bottom: 1rem;
+}
+.legal-body h2:first-child { margin-top: 0; }
+.legal-body h3 {
+  font-size: 1.15rem;
+  color: var(--earth);
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+}
+.legal-body p {
+  margin-bottom: 1.1rem;
+}
+.legal-body ul {
+  list-style: none;
+  margin: 0 0 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.legal-body ul li {
+  position: relative;
+  padding-left: 1.3rem;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.75;
+  color: var(--text-soft);
+}
+.legal-body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.legal-body strong { color: var(--brown); font-weight: 500; }
+.legal-updated {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  display: block;
+}
+
+/* ========================
+   WHATSAPP FLUTUANTE
+   ======================== */
+.whatsapp-float {
+  position: fixed;
+  right: 1.6rem;
+  bottom: 1.6rem;
+  z-index: 80;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+.whatsapp-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.3);
+}
 
 /* ========================
    MENU MOBILE
@@ -979,9 +1216,8 @@ blockquote {
 @media (max-width: 1024px) {
   .nomade-grid    { grid-template-columns: 1fr; gap: 2.5rem; }
   .nomade-img-col { aspect-ratio: 16 / 9; }
-  .pilares        { grid-template-columns: 1fr; gap: 3px; }
-  .steps-h        { grid-template-columns: 1fr; gap: 2rem; }
-  .step-h-line    { display: none; }
+  .pilares        { grid-template-columns: 1fr; gap: 1.25rem; }
+  .steps-h        { grid-template-columns: 1fr; gap: 2.5rem; }
   .features-grid  { grid-template-columns: repeat(2, 1fr); }
   .mv-grid        { grid-template-columns: 1fr; }
   .footer-top     { grid-template-columns: 1fr 1fr; }
@@ -993,13 +1229,12 @@ blockquote {
   }
   .refugio-row.reverse .refugio-foto  { order: 0; }
   .refugio-row.reverse .refugio-info-panel { order: 1; }
-  .refugio-foto { min-height: 320px; }
 }
 
 @media (max-width: 768px) {
   .header-nav { display: none; }
   .menu-toggle { display: flex; }
-  .logo img { height: 65px; }
+  .logo img { height: 90px; }
 
   .hero-content { padding-top: 7rem; }
 
@@ -1008,7 +1243,8 @@ blockquote {
   .footer-bottom { flex-direction: column; align-items: flex-start; }
 
   .carousel-item { width: 280px; height: 220px; }
-  .refugio-foto  { min-height: 260px; }
+
+  .whatsapp-float { width: 50px; height: 50px; right: 1.1rem; bottom: 1.1rem; }
 }
 
 @media (max-width: 480px) {
